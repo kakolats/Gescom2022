@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Users" EntityType="Model1.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Produits" EntityType="Model1.Store.Produits" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Categories" EntityType="Model1.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Images" EntityType="Model1.Store.Images" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Commandes" EntityType="Model1.Store.Commandes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Livraisons" EntityType="Model1.Store.Livraisons" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Paiements" EntityType="Model1.Store.Paiements" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DetailCommandes" EntityType="Model1.Store.DetailCommandes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Livreur" EntityType="Model1.Store.Users_Livreur" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Client" EntityType="Model1.Store.Users_Client" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ProduitCategorie" Association="Model1.Store.ProduitCategorie">
+      <End Role="Produit" EntitySet="Produits" />
+      <End Role="Categorie" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="ProduitImage" Association="Model1.Store.ProduitImage">
+      <End Role="Produit" EntitySet="Produits" />
+      <End Role="Image" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="CommandeDetailCommande" Association="Model1.Store.CommandeDetailCommande">
+      <End Role="Commande" EntitySet="Commandes" />
+      <End Role="DetailCommandes" EntitySet="DetailCommandes" />
+    </AssociationSet>
+    <AssociationSet Name="ProduitDetailCommande" Association="Model1.Store.ProduitDetailCommande">
+      <End Role="Produit" EntitySet="Produits" />
+      <End Role="DetailCommandes" EntitySet="DetailCommandes" />
+    </AssociationSet>
+    <AssociationSet Name="CommandePaiement" Association="Model1.Store.CommandePaiement">
+      <End Role="Commande" EntitySet="Commandes" />
+      <End Role="Paiement" EntitySet="Paiements" />
+    </AssociationSet>
+    <AssociationSet Name="CommandeLivraison" Association="Model1.Store.CommandeLivraison">
+      <End Role="Commande" EntitySet="Commandes" />
+      <End Role="Livraison" EntitySet="Livraisons" />
+    </AssociationSet>
+    <AssociationSet Name="LivreurLivraison" Association="Model1.Store.LivreurLivraison">
+      <End Role="Livreur" EntitySet="Users_Livreur" />
+      <End Role="Livraison" EntitySet="Livraisons" />
+    </AssociationSet>
+    <AssociationSet Name="ClientPaiement" Association="Model1.Store.ClientPaiement">
+      <End Role="Client" EntitySet="Users_Client" />
+      <End Role="Paiement" EntitySet="Paiements" />
+    </AssociationSet>
+    <AssociationSet Name="ClientCommande" Association="Model1.Store.ClientCommande">
+      <End Role="Client" EntitySet="Users_Client" />
+      <End Role="Commande" EntitySet="Commandes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Livreur_inherits_User" Association="Model1.Store.FK_Livreur_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Livreur" EntitySet="Users_Livreur" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Client_inherits_User" Association="Model1.Store.FK_Client_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Client" EntitySet="Users_Client" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NomComplet" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Role" Type="nvarchar(max)" Nullable="false" DefaultValue="ROLE_CLIENT" />
+  </EntityType>
+  <EntityType Name="Produits">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Prix" Type="float" Nullable="false" />
+    <Property Name="Stock" Type="bigint" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SeuilStock" Type="bigint" Nullable="false" />
+    <Property Name="CategorieId" Type="int" Nullable="false" />
+    <Property Name="CategorieId1" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Image" Type="tinyint" Nullable="true" />
+    <Property Name="CodeCat" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Images">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImageByte" Type="tinyint" Nullable="false" />
+    <Property Name="ProduitId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Commandes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Numero" Type="bigint" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Montant" Type="float" Nullable="false" />
+    <Property Name="AdresseLivraison" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Etat" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Livraisons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Statut" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LivreurId" Type="int" Nullable="false" />
+    <Property Name="Commande_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Paiements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Reference" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Montant" Type="float" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+    <Property Name="Commande_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetailCommandes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Quantite" Type="bigint" Nullable="false" />
+    <Property Name="CommandeId" Type="int" Nullable="false" />
+    <Property Name="ProduitId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_Livreur">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Matricule" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_Client">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Adresse" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Solde" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ProduitCategorie">
+    <End Role="Produit" Type="Model1.Store.Produits" Multiplicity="*" />
+    <End Role="Categorie" Type="Model1.Store.Categories" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Categorie">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Produit">
+        <PropertyRef Name="CategorieId1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProduitImage">
+    <End Role="Produit" Type="Model1.Store.Produits" Multiplicity="1" />
+    <End Role="Image" Type="Model1.Store.Images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="ProduitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommandeDetailCommande">
+    <End Role="Commande" Type="Model1.Store.Commandes" Multiplicity="1" />
+    <End Role="DetailCommandes" Type="Model1.Store.DetailCommandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commande">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DetailCommandes">
+        <PropertyRef Name="CommandeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProduitDetailCommande">
+    <End Role="Produit" Type="Model1.Store.Produits" Multiplicity="1" />
+    <End Role="DetailCommandes" Type="Model1.Store.DetailCommandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DetailCommandes">
+        <PropertyRef Name="ProduitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommandePaiement">
+    <End Role="Commande" Type="Model1.Store.Commandes" Multiplicity="1" />
+    <End Role="Paiement" Type="Model1.Store.Paiements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commande">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Paiement">
+        <PropertyRef Name="Commande_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommandeLivraison">
+    <End Role="Commande" Type="Model1.Store.Commandes" Multiplicity="1" />
+    <End Role="Livraison" Type="Model1.Store.Livraisons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commande">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Livraison">
+        <PropertyRef Name="Commande_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LivreurLivraison">
+    <End Role="Livreur" Type="Model1.Store.Users_Livreur" Multiplicity="1" />
+    <End Role="Livraison" Type="Model1.Store.Livraisons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Livreur">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Livraison">
+        <PropertyRef Name="LivreurId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClientPaiement">
+    <End Role="Client" Type="Model1.Store.Users_Client" Multiplicity="1" />
+    <End Role="Paiement" Type="Model1.Store.Paiements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Paiement">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClientCommande">
+    <End Role="Client" Type="Model1.Store.Users_Client" Multiplicity="1" />
+    <End Role="Commande" Type="Model1.Store.Commandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commande">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Livreur_inherits_User">
+    <End Role="User" Type="Model1.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Livreur" Type="Model1.Store.Users_Livreur" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Livreur">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Client_inherits_User">
+    <End Role="User" Type="Model1.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Client" Type="Model1.Store.Users_Client" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,14 @@
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\bin\Debug\Gestion_Com_2022.exe.config
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\bin\Debug\Gestion_Com_2022.exe
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\bin\Debug\Gestion_Com_2022.pdb
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\bin\Debug\EntityFramework.dll
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\bin\Debug\EntityFramework.xml
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\bin\Debug\fr\EntityFramework.resources.dll
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\obj\Debug\Gestion_Com_2022.csproj.AssemblyReference.cache
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\obj\Debug\Gestion_Com_2022.Properties.Resources.resources
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\obj\Debug\Gestion_Com_2022.csproj.GenerateResource.cache
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\obj\Debug\Gestion_Com_2022.csproj.CoreCompileInputs.cache
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\obj\Debug\Gestion_Com_2022.exe
+C:\Users\HP\Documents\TROISIEME ANNEE\C#\Projet C#\Gestion_Com_2022\obj\Debug\Gestion_Com_2022.pdb

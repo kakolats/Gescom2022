@@ -1,0 +1,701 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Users" EntityType="Model1.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Produits" EntityType="Model1.Store.Produits" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Categories" EntityType="Model1.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Images" EntityType="Model1.Store.Images" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Commandes" EntityType="Model1.Store.Commandes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Livraisons" EntityType="Model1.Store.Livraisons" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Paiements" EntityType="Model1.Store.Paiements" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DetailCommandes" EntityType="Model1.Store.DetailCommandes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Livreur" EntityType="Model1.Store.Users_Livreur" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_Client" EntityType="Model1.Store.Users_Client" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ProduitCategorie" Association="Model1.Store.ProduitCategorie">
+      <End Role="Produit" EntitySet="Produits" />
+      <End Role="Categorie" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="ProduitImage" Association="Model1.Store.ProduitImage">
+      <End Role="Produit" EntitySet="Produits" />
+      <End Role="Image" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="CommandeDetailCommande" Association="Model1.Store.CommandeDetailCommande">
+      <End Role="Commande" EntitySet="Commandes" />
+      <End Role="DetailCommandes" EntitySet="DetailCommandes" />
+    </AssociationSet>
+    <AssociationSet Name="ProduitDetailCommande" Association="Model1.Store.ProduitDetailCommande">
+      <End Role="Produit" EntitySet="Produits" />
+      <End Role="DetailCommandes" EntitySet="DetailCommandes" />
+    </AssociationSet>
+    <AssociationSet Name="CommandePaiement" Association="Model1.Store.CommandePaiement">
+      <End Role="Commande" EntitySet="Commandes" />
+      <End Role="Paiement" EntitySet="Paiements" />
+    </AssociationSet>
+    <AssociationSet Name="CommandeLivraison" Association="Model1.Store.CommandeLivraison">
+      <End Role="Commande" EntitySet="Commandes" />
+      <End Role="Livraison" EntitySet="Livraisons" />
+    </AssociationSet>
+    <AssociationSet Name="LivreurLivraison" Association="Model1.Store.LivreurLivraison">
+      <End Role="Livreur" EntitySet="Users_Livreur" />
+      <End Role="Livraison" EntitySet="Livraisons" />
+    </AssociationSet>
+    <AssociationSet Name="ClientPaiement" Association="Model1.Store.ClientPaiement">
+      <End Role="Client" EntitySet="Users_Client" />
+      <End Role="Paiement" EntitySet="Paiements" />
+    </AssociationSet>
+    <AssociationSet Name="ClientCommande" Association="Model1.Store.ClientCommande">
+      <End Role="Client" EntitySet="Users_Client" />
+      <End Role="Commande" EntitySet="Commandes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Livreur_inherits_User" Association="Model1.Store.FK_Livreur_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Livreur" EntitySet="Users_Livreur" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Client_inherits_User" Association="Model1.Store.FK_Client_inherits_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Client" EntitySet="Users_Client" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NomComplet" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Role" Type="nvarchar(max)" Nullable="false" DefaultValue="ROLE_CLIENT" />
+  </EntityType>
+  <EntityType Name="Produits">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Prix" Type="float" Nullable="false" />
+    <Property Name="Stock" Type="bigint" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SeuilStock" Type="bigint" Nullable="false" />
+    <Property Name="CategorieId" Type="int" Nullable="false" />
+    <Property Name="CategorieId1" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Image" Type="tinyint" Nullable="true" />
+    <Property Name="CodeCat" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Images">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImageByte" Type="tinyint" Nullable="false" />
+    <Property Name="ProduitId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Commandes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Numero" Type="bigint" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Montant" Type="float" Nullable="false" />
+    <Property Name="AdresseLivraison" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Etat" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Livraisons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Statut" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LivreurId" Type="int" Nullable="false" />
+    <Property Name="Commande_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Paiements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Reference" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Montant" Type="float" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+    <Property Name="Commande_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetailCommandes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Quantite" Type="bigint" Nullable="false" />
+    <Property Name="CommandeId" Type="int" Nullable="false" />
+    <Property Name="ProduitId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_Livreur">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Matricule" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_Client">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Adresse" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Solde" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ProduitCategorie">
+    <End Role="Produit" Type="Model1.Store.Produits" Multiplicity="*" />
+    <End Role="Categorie" Type="Model1.Store.Categories" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Categorie">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Produit">
+        <PropertyRef Name="CategorieId1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProduitImage">
+    <End Role="Produit" Type="Model1.Store.Produits" Multiplicity="1" />
+    <End Role="Image" Type="Model1.Store.Images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Image">
+        <PropertyRef Name="ProduitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommandeDetailCommande">
+    <End Role="Commande" Type="Model1.Store.Commandes" Multiplicity="1" />
+    <End Role="DetailCommandes" Type="Model1.Store.DetailCommandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commande">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DetailCommandes">
+        <PropertyRef Name="CommandeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProduitDetailCommande">
+    <End Role="Produit" Type="Model1.Store.Produits" Multiplicity="1" />
+    <End Role="DetailCommandes" Type="Model1.Store.DetailCommandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DetailCommandes">
+        <PropertyRef Name="ProduitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommandePaiement">
+    <End Role="Commande" Type="Model1.Store.Commandes" Multiplicity="1" />
+    <End Role="Paiement" Type="Model1.Store.Paiements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commande">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Paiement">
+        <PropertyRef Name="Commande_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommandeLivraison">
+    <End Role="Commande" Type="Model1.Store.Commandes" Multiplicity="1" />
+    <End Role="Livraison" Type="Model1.Store.Livraisons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Commande">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Livraison">
+        <PropertyRef Name="Commande_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LivreurLivraison">
+    <End Role="Livreur" Type="Model1.Store.Users_Livreur" Multiplicity="1" />
+    <End Role="Livraison" Type="Model1.Store.Livraisons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Livreur">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Livraison">
+        <PropertyRef Name="LivreurId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClientPaiement">
+    <End Role="Client" Type="Model1.Store.Users_Client" Multiplicity="1" />
+    <End Role="Paiement" Type="Model1.Store.Paiements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Paiement">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClientCommande">
+    <End Role="Client" Type="Model1.Store.Users_Client" Multiplicity="1" />
+    <End Role="Commande" Type="Model1.Store.Commandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commande">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Livreur_inherits_User">
+    <End Role="User" Type="Model1.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Livreur" Type="Model1.Store.Users_Livreur" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Livreur">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Client_inherits_User">
+    <End Role="User" Type="Model1.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Client" Type="Model1.Store.Users_Client" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Model1.User" />
+          <EntitySet Name="Produits" EntityType="Model1.Produit" />
+          <EntitySet Name="Categories" EntityType="Model1.Categorie" />
+          <EntitySet Name="Images" EntityType="Model1.Image" />
+          <EntitySet Name="Commandes" EntityType="Model1.Commande" />
+          <EntitySet Name="Livraisons" EntityType="Model1.Livraison" />
+          <EntitySet Name="Paiements" EntityType="Model1.Paiement" />
+          <AssociationSet Name="ProduitCategorie" Association="Model1.ProduitCategorie">
+            <End Role="Produit" EntitySet="Produits" />
+            <End Role="Categorie" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="ProduitImage" Association="Model1.ProduitImage">
+            <End Role="Produit" EntitySet="Produits" />
+            <End Role="Image" EntitySet="Images" />
+          </AssociationSet>
+          <EntitySet Name="DetailCommandes" EntityType="Model1.DetailCommande" />
+          <AssociationSet Name="CommandeDetailCommande" Association="Model1.CommandeDetailCommande">
+            <End Role="Commande" EntitySet="Commandes" />
+            <End Role="DetailCommandes" EntitySet="DetailCommandes" />
+          </AssociationSet>
+          <AssociationSet Name="ProduitDetailCommande" Association="Model1.ProduitDetailCommande">
+            <End Role="Produit" EntitySet="Produits" />
+            <End Role="DetailCommandes" EntitySet="DetailCommandes" />
+          </AssociationSet>
+          <AssociationSet Name="CommandePaiement" Association="Model1.CommandePaiement">
+            <End Role="Commande" EntitySet="Commandes" />
+            <End Role="Paiement" EntitySet="Paiements" />
+          </AssociationSet>
+          <AssociationSet Name="CommandeLivraison" Association="Model1.CommandeLivraison">
+            <End Role="Commande" EntitySet="Commandes" />
+            <End Role="Livraison" EntitySet="Livraisons" />
+          </AssociationSet>
+          <AssociationSet Name="LivreurLivraison" Association="Model1.LivreurLivraison">
+            <End Role="Livreur" EntitySet="Users" />
+            <End Role="Livraison" EntitySet="Livraisons" />
+          </AssociationSet>
+          <AssociationSet Name="ClientPaiement" Association="Model1.ClientPaiement">
+            <End Role="Client" EntitySet="Users" />
+            <End Role="Paiement" EntitySet="Paiements" />
+          </AssociationSet>
+          <AssociationSet Name="ClientCommande" Association="Model1.ClientCommande">
+            <End Role="Client" EntitySet="Users" />
+            <End Role="Commande" EntitySet="Commandes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <Property Name="NomComplet" Type="String" Nullable="false" />
+          <Property Name="Role" Type="String" Nullable="false" DefaultValue="ROLE_CLIENT" />
+        </EntityType>
+        <EntityType Name="Client" BaseType="Model1.User">
+          <Property Name="Telephone" Type="String" Nullable="false" />
+          <Property Name="Adresse" Type="String" Nullable="false" />
+          <Property Name="Solde" Type="Double" Nullable="false" DefaultValue="0" />
+          <NavigationProperty Name="Paiements" Relationship="Model1.ClientPaiement" FromRole="Client" ToRole="Paiement" />
+          <NavigationProperty Name="Commandes" Relationship="Model1.ClientCommande" FromRole="Client" ToRole="Commande" />
+        </EntityType>
+        <EntityType Name="Livreur" BaseType="Model1.User">
+          <Property Name="Matricule" Type="String" Nullable="false" />
+          <Property Name="Telephone" Type="String" Nullable="false" />
+          <NavigationProperty Name="Livraison" Relationship="Model1.LivreurLivraison" FromRole="Livreur" ToRole="Livraison" />
+        </EntityType>
+        <EntityType Name="Produit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" Unicode="true" />
+          <Property Name="Prix" Type="Double" Nullable="false" />
+          <Property Name="Stock" Type="Int64" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="SeuilStock" Type="Int64" Nullable="false" />
+          <Property Name="CategorieId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categorie" Relationship="Model1.ProduitCategorie" FromRole="Produit" ToRole="Categorie" />
+          <Property Name="CategorieId1" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Images" Relationship="Model1.ProduitImage" FromRole="Produit" ToRole="Image" />
+          <NavigationProperty Name="DetailCommande" Relationship="Model1.ProduitDetailCommande" FromRole="Produit" ToRole="DetailCommandes" />
+        </EntityType>
+        <EntityType Name="Categorie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Libelle" Type="String" Nullable="false" Unicode="true" />
+          <Property Name="Image" Type="Byte" Nullable="true" />
+          <Property Name="CodeCat" Type="String" Nullable="false" Unicode="true" />
+          <NavigationProperty Name="Produits" Relationship="Model1.ProduitCategorie" FromRole="Categorie" ToRole="Produit" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageByte" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Produit" Relationship="Model1.ProduitImage" FromRole="Image" ToRole="Produit" />
+          <Property Name="ProduitId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Commande">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Montant" Type="Double" Nullable="false" />
+          <Property Name="AdresseLivraison" Type="String" Nullable="false" />
+          <Property Name="Etat" Type="String" Nullable="false" />
+          <NavigationProperty Name="DetailCommande" Relationship="Model1.CommandeDetailCommande" FromRole="Commande" ToRole="DetailCommandes" />
+          <NavigationProperty Name="Paiement" Relationship="Model1.CommandePaiement" FromRole="Commande" ToRole="Paiement" />
+          <NavigationProperty Name="Livraison" Relationship="Model1.CommandeLivraison" FromRole="Commande" ToRole="Livraison" />
+          <NavigationProperty Name="Client" Relationship="Model1.ClientCommande" FromRole="Commande" ToRole="Client" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Livraison">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Statut" Type="String" Nullable="false" />
+          <NavigationProperty Name="Commande" Relationship="Model1.CommandeLivraison" FromRole="Livraison" ToRole="Commande" />
+          <NavigationProperty Name="Livreur" Relationship="Model1.LivreurLivraison" FromRole="Livraison" ToRole="Livreur" />
+          <Property Name="LivreurId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Paiement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="Reference" Type="String" Nullable="false" />
+          <Property Name="Montant" Type="Double" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Commande" Relationship="Model1.CommandePaiement" FromRole="Paiement" ToRole="Commande" />
+          <NavigationProperty Name="Client" Relationship="Model1.ClientPaiement" FromRole="Paiement" ToRole="Client" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="ProduitCategorie">
+          <End Type="Model1.Produit" Role="Produit" Multiplicity="*" />
+          <End Type="Model1.Categorie" Role="Categorie" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Categorie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produit">
+              <PropertyRef Name="CategorieId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProduitImage">
+          <End Type="Model1.Produit" Role="Produit" Multiplicity="1" />
+          <End Type="Model1.Image" Role="Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="ProduitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DetailCommande">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantite" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Commande" Relationship="Model1.CommandeDetailCommande" FromRole="DetailCommandes" ToRole="Commande" />
+          <Property Name="CommandeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produit" Relationship="Model1.ProduitDetailCommande" FromRole="DetailCommandes" ToRole="Produit" />
+          <Property Name="ProduitId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CommandeDetailCommande">
+          <End Type="Model1.Commande" Role="Commande" Multiplicity="1" />
+          <End Type="Model1.DetailCommande" Role="DetailCommandes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commande">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetailCommandes">
+              <PropertyRef Name="CommandeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProduitDetailCommande">
+          <End Type="Model1.Produit" Role="Produit" Multiplicity="1" />
+          <End Type="Model1.DetailCommande" Role="DetailCommandes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetailCommandes">
+              <PropertyRef Name="ProduitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CommandePaiement">
+          <End Type="Model1.Commande" Role="Commande" Multiplicity="1" />
+          <End Type="Model1.Paiement" Role="Paiement" Multiplicity="0..1" />
+        </Association>
+        <Association Name="CommandeLivraison">
+          <End Type="Model1.Commande" Role="Commande" Multiplicity="1" />
+          <End Type="Model1.Livraison" Role="Livraison" Multiplicity="0..1" />
+        </Association>
+        <Association Name="LivreurLivraison">
+          <End Type="Model1.Livreur" Role="Livreur" Multiplicity="1" />
+          <End Type="Model1.Livraison" Role="Livraison" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Livreur">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Livraison">
+              <PropertyRef Name="LivreurId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ClientPaiement">
+          <End Type="Model1.Client" Role="Client" Multiplicity="1" />
+          <End Type="Model1.Paiement" Role="Paiement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Paiement">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ClientCommande">
+          <End Type="Model1.Client" Role="Client" Multiplicity="1" />
+          <End Type="Model1.Commande" Role="Commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commande">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="NomComplet" ColumnName="NomComplet" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Livreur)">
+        <MappingFragment StoreEntitySet="Users_Livreur">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Matricule" ColumnName="Matricule" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Client)">
+        <MappingFragment StoreEntitySet="Users_Client">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="Solde" ColumnName="Solde" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Produits">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Produit)">
+        <MappingFragment StoreEntitySet="Produits">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Prix" ColumnName="Prix" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="SeuilStock" ColumnName="SeuilStock" />
+          <ScalarProperty Name="CategorieId" ColumnName="CategorieId" />
+          <ScalarProperty Name="CategorieId1" ColumnName="CategorieId1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Categorie)">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="CodeCat" ColumnName="CodeCat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Image)">
+        <MappingFragment StoreEntitySet="Images">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ImageByte" ColumnName="ImageByte" />
+          <ScalarProperty Name="ProduitId" ColumnName="ProduitId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Commandes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Commande)">
+        <MappingFragment StoreEntitySet="Commandes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Montant" ColumnName="Montant" />
+          <ScalarProperty Name="AdresseLivraison" ColumnName="AdresseLivraison" />
+          <ScalarProperty Name="Etat" ColumnName="Etat" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Livraisons">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Livraison)">
+        <MappingFragment StoreEntitySet="Livraisons">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Statut" ColumnName="Statut" />
+          <ScalarProperty Name="LivreurId" ColumnName="LivreurId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Paiements">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Paiement)">
+        <MappingFragment StoreEntitySet="Paiements">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Reference" ColumnName="Reference" />
+          <ScalarProperty Name="Montant" ColumnName="Montant" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetailCommandes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.DetailCommande)">
+        <MappingFragment StoreEntitySet="DetailCommandes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+          <ScalarProperty Name="CommandeId" ColumnName="CommandeId" />
+          <ScalarProperty Name="ProduitId" ColumnName="ProduitId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CommandePaiement" TypeName="Model1.CommandePaiement" StoreEntitySet="Paiements">
+      <EndProperty Name="Commande">
+        <ScalarProperty Name="Id" ColumnName="Commande_Id" />
+      </EndProperty>
+      <EndProperty Name="Paiement">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CommandeLivraison" TypeName="Model1.CommandeLivraison" StoreEntitySet="Livraisons">
+      <EndProperty Name="Commande">
+        <ScalarProperty Name="Id" ColumnName="Commande_Id" />
+      </EndProperty>
+      <EndProperty Name="Livraison">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
